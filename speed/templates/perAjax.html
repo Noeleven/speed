@@ -1,0 +1,50 @@
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">2017-05-xx xx范围接口列表</h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+
+      <div class="box-body">
+          <h4></h4>
+        <table id="sectable" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>平均服务耗时/毫秒</th>
+            <th>调用量</th>
+            <th>接口</th>
+            <th>接口名称</th>
+            <th>版本</th>
+            <th>品类</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for x in datas %}
+              <tr>
+                <td>{% if x.time > 2000 %}<span class='label label-danger'>
+                {% elif x.time < 500 %}<span class='label label-success'>
+                {% else %}<span class='label label-warning'>{%endif%}{{ x.time }}</span></td>
+                <td>{{ x.num }}</td>
+                <td><a href="/speed/single?&id=1">{{ x.int }}</a></td>
+                <td>{{ x.des }}</td>
+                <td>{{ x.ver }}</td>
+                <td>{{ x.ci }}</td>
+              </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+  </div>
+<script>
+    $('#sectable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "order": [[ 0, 'desc' ]],
+      "info": true,
+      "autoWidth": true
+    });
+</script>

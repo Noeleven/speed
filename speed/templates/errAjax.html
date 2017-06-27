@@ -1,0 +1,29 @@
+    <p>{{data}}</p>
+    <table id="sectable" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>错误数量</th>
+                <th>错误码</th>
+                <th>描述</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for x in datas %}
+            <tr>
+                <td>{{ x.num }}</td>
+                <td><a href="/speed/errPage?&code={{ x.code }}">{{ x.code }}</a></td>
+                <td>{{ x.des }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        $('#sectable').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "order": [[ 0, 'desc' ]],
+          "info": true,
+          "autoWidth": true
+        });
+    </script>

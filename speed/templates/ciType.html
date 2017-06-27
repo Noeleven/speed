@@ -1,0 +1,85 @@
+{% extends "index.html" %}
+{% block content %}
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">选择时间</h3>
+      </div>
+      <div class="box-body">
+        <form class="form-inline">
+            <div class="form-group">
+              <label class="sr-only">选择起始时间</label>
+
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="reservationtime">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="sr-only">时间范围</label>
+
+              <div class="input-group">
+                <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                  <span>
+                    <i class="fa fa-calendar"></i> 时间范围
+                  </span>
+                  <i class="fa fa-caret-down"></i>
+                </button>
+              </div>
+            </div>
+            <button class='btn btn-success'>查询</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">品类分类耗时
+        </h3>
+      </div>
+      <div class="box-body">
+          <div class="col-md-4">
+              <table id="ftable" class="ftable table table-bordered table-striped">
+                <thead>
+                    <tr>
+                      <th>平均服务耗时/毫秒</th>
+                      <th>平均总耗时/毫秒</th>
+                      <th>品类</th>
+                      <th>接口数量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for x in datas %}
+                    <tr>
+                      <td>{% if x.sertime > 2000 %}<span class='label label-danger'>
+                      {% elif x.sertime < 500 %}<span class='label label-success'>
+                      {% else %}<span class='label label-warning'>
+                      {% endif %}{{ x.sertime }}</span></td>
+                      <td>{% if x.time > 2500 %}<span class='label label-danger'>
+                      {% elif x.time < 1000 %}<span class='label label-success'>
+                      {% else %}<span class='label label-warning'>
+                      {% endif %}{{ x.time }}</span></td>
+                      <td><a href="#">{{ x.type }}</a></td>
+                      <td>{{ x.num }}</td>
+                    </tr>
+                {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+          <div id='right' class="col-md-8">
+          </div>
+
+      </div>
+    </div>
+
+    <script>
+        $('tr').click(function(){
+            var type = $(this).children().eq(2).text()
+            $.get("/speed/ciAjax", {'type':type} ,function(ret){
+                $('#right').html(ret)
+            });
+        });
+    </script>
+{% endblock content %}

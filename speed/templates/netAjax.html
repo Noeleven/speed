@@ -1,0 +1,34 @@
+
+
+{% load staticfiles %}
+<table id="sectable" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>平均网络耗时/毫秒</th>
+          <th>运营商</th>
+          <th>网络制式</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for x in datas %}
+          <tr>
+            <td>{% if x.netTime > 2000 %}<span class='label label-danger'>
+            {% elif x.netTime < 500 %}<span class='label label-success'>
+            {% else %}<span class='label label-warning'>{%endif%}
+                {{ x.netTime }}</span></td>
+            <td>{{ x.yys }}</td>
+            <td>{{ x.wlzs }}</td>
+          </tr>
+      {% endfor %}
+    </tbody>
+</table>
+<script>
+    $('#sectable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "order": [[ 0, 'desc' ]],
+      "info": true,
+      "autoWidth": true
+    });
+</script>

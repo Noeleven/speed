@@ -1,0 +1,209 @@
+{% extends "index.html" %}
+{% block content %}
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">选择时间</h3>
+      </div>
+      <div class="box-body">
+        <form class="form-inline">
+            <div class="form-group">
+              <label class="sr-only">选择起始时间</label>
+
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="reservationtime">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="sr-only">时间范围</label>
+
+              <div class="input-group">
+                <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                  <span>
+                    <i class="fa fa-calendar"></i> 时间范围
+                  </span>
+                  <i class="fa fa-caret-down"></i>
+                </button>
+              </div>
+            </div>
+            <button class='btn btn-success'>查询</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">接口信息
+        </h3>
+
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+          <table class='table'>
+              <tbody>
+                  <tr>
+                      <td>接口：{{ inter.method }}</td>
+                      <td>描述：{{ inter.des }}</td>
+                      <td>版本：{{ inter.version }}</td>
+                  </tr>
+                      <tr>
+                          <!-- <td>所属BU：{{inter.bType.bType}}</td> -->
+                          <!-- <td>归类：{{ inter.sType.sType }}</td> -->
+                          <td>品类：{{ inter.cType.cType }}</td>
+                          <td>平均耗时：{% if time > 2000 %}<span class='label label-danger'>
+                          {% elif time < 500 %}<span class='label label-success'>
+                          {% else %}<span class='label label-warning'>{%endif%}{{ time }}</span> 毫秒</td>
+                          <td>调用量：{{ num }} </td>
+                      </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+
+    <div class="box box-primary">
+      <div class="box-header with-border">
+          <h3 class="box-title">性能调用量趋势
+          </h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="chart">
+          <div id="per" style="height:600px;"></div>
+        </div>
+      </div>
+    </div>
+
+<script>
+    function randomData() {
+        return parseInt(Math.random()*10+80, 10);
+    }
+
+    var chart = echarts.init(document.getElementById('per'));
+    option = {
+        title: {
+            text: '',
+            subtext: '',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                animation: false
+            }
+        },
+        legend: {
+            data:['服务耗时','调用量'],
+            x: 'left'
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        axisPointer: {
+            link: {xAxisIndex: 'all'}
+        },
+        dataZoom: [
+            {
+                show: true,
+                realtime: true,
+                xAxisIndex: [0, 1]
+            },
+            {
+                type: 'inside',
+                realtime: true,
+                xAxisIndex: [0, 1]
+            }
+        ],
+        grid: [{
+            height: '35%'
+        }, {
+            top: '55%',
+            height: '30%'
+        }],
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                axisLine: {onZero: true},
+                // data: ['2017-05-24', '2017-05-25', '2017-05-26', '2017-05-27', '2017-05-28', '2017-05-29', '2017-05-30', '2017-05-31']
+                data:['13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00']
+            },
+            {
+                gridIndex: 1,
+                type : 'category',
+                boundaryGap : false,
+                axisLine: {onZero: true},
+                data: ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'],
+                position: 'top'
+            }
+        ],
+        yAxis : [
+            {
+                name : '性能趋势',
+                type : 'value',
+                // max : 50,
+                axisLabel: {
+                    formatter: '{value} 毫秒'
+                }
+            },
+            {
+                gridIndex: 1,
+                name : '调用量趋势',
+                type : 'value',
+                inverse: true
+            }
+        ],
+        series : [
+            {
+                name:'服务耗时',
+                type:'line',
+                smooth:true,
+                areaStyle: {normal: {}},
+                data:[{name: '13:00',value: randomData()},{name: '14:00',value: randomData()},{name: '15:00',value: randomData()},{name: '16:00',value: randomData()},{name: '17:00',value: randomData()},{name: '18:00',value: randomData()},{name: '19:00',value: randomData()},{name: '20:00',value: randomData()},{name: '21:00',value: randomData()},{name: '22:00',value: randomData()}],
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            },
+            {
+                name:'调用量',
+                type:'line',
+                smooth:true,
+                areaStyle: {normal: {}},
+                xAxisIndex: 1,
+                yAxisIndex: 1,
+                symbolSize: 8,
+                hoverAnimation: false,
+                data: [randomData()*500,randomData()*500,randomData()*500,randomData()*500,randomData()*500,randomData()*500,randomData()*500,randomData()*500,randomData()*500,randomData()*500],
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    chart.setOption(option, true);
+
+</script>
+
+
+{% endblock content %}

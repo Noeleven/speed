@@ -1,0 +1,81 @@
+{% extends "index.html" %}
+{% block content %}
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">选择时间</h3>
+      </div>
+      <div class="box-body">
+        <form class="form-inline">
+            <div class="form-group">
+              <label class="sr-only">选择起始时间</label>
+
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="reservationtime">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="sr-only">时间范围</label>
+
+              <div class="input-group">
+                <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                  <span>
+                    <i class="fa fa-calendar"></i> 时间范围
+                  </span>
+                  <i class="fa fa-caret-down"></i>
+                </button>
+              </div>
+            </div>
+            <button class='btn btn-success'>查询</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">页面性能 <small class='text-danger'>单项点击查看性能报告</small>
+        </h3>
+      </div>
+      <div class="box-body">
+          <div>
+              <table id="ftable" class="ftable table table-hover table-bordered table-striped">
+                <thead>
+                    <tr>
+                      <th>综合评分</th>
+                      <th>页面名称</th>
+                      <th>平台</th>
+                      <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for x in datas %}
+                    <tr class='mytr'>
+                        <td>{% if x.score >= 90 %}<span class='label label-info'>{% elif x.score >= 80 %}<span class='label label-success'>{% elif x.score >= 60 %}<span class='label label-warning'>{% else %}<span class='label label-danger'>{% endif %}{{ x.score }}</span></td>
+                        <td id={{x.id}}><a href="#">{{ x.name }}</a></td>
+                        <td>{{ x.plat }}</td>
+                        <td>{{ x.url }}</td>
+                    </tr>
+                {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+          <div id='right'>
+          </div>
+
+      </div>
+    </div>
+
+    <script>
+        $('.mytr').click(function(){
+            var id = $(this).children().eq(1)[0].id
+                score = $(this).children().eq(0).text()
+            console.log(id,score)
+            $.get("/speed/feelAjax", {'id':id,'score':score} ,function(ret){
+                $('#right').html(ret)
+            });
+        });
+    </script>
+{% endblock content %}

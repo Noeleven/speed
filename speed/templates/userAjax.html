@@ -1,0 +1,53 @@
+
+<div class="box box-primary">
+  <div class="box-header">
+    <h3 class="box-title">操作历史 <small class='text-danger'> 点击查看更多</small></h3>
+  </div>
+  <div class="box-body">
+    <table id='sectable' class="ftable table table-hover table-bordered table-striped">
+      <thead>
+          <tr>
+            <th>用户ID</th>
+            <th>手机号</th>
+            <th>设备型号</th>
+            <th>设备号</th>
+            <th>请求数</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for x in datas %}
+        <tr class='mytr'>
+            <td>{{ x.userId }}</td>
+            <td>{{ x.phone }}</td>
+            <td>{{ x.phoneType }}</td>
+            <td>{{ x.deviceToken }}</td>
+            <td>{{ x.num }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+    $('#sectable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true
+    });
+</script>
+<script>
+    $('.mytr').click(function(){
+        var userId = $(this).children().eq(0).text()
+            phone = $(this).children().eq(1).text()
+            phoneType = $(this).children().eq(2).text()
+            deviceToken = $(this).children().eq(3).text()
+            num = $(this).children().eq(4).text()
+        $.get("/speed/history", {'userId':userId, 'phone':phone, 'phoneType':phoneType, 'deviceToken':deviceToken, 'num':num} ,function(ret){
+            document.write(ret)
+        });
+    });
+</script>

@@ -1,0 +1,59 @@
+
+    <div id='zhan' style='height:400px'></div>
+
+    <script>
+        function randomData() {
+            return Math.floor(Math.random() * 100) / 100;
+        }
+
+        var chart2 = echarts.init(document.getElementById('zhan'));
+        var a = Math.floor(Math.random() * 60)
+            b = 60 - a
+
+        option2 = {
+            title : {
+                text: '{{name|safe}} 耗时占比',
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                x : 'center',
+                y : 'bottom',
+                data:['0-2秒','2-4秒','4-6秒','6-8秒','8-10秒','10秒以上']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'面积模式',
+                    type:'pie',
+                    radius : [20, 110],
+                    roseType : 'radius',
+                    data:[
+                        {value:5, name:'0-2秒'},
+                        {value:15, name:'2-4秒'},
+                        {value:a, name:'4-6秒'},
+                        {value:b, name:'6-8秒'},
+                        {value:7, name:'8-10秒'},
+                        {value:13, name:'10秒以上'},
+                    ]
+                }
+            ]
+        };
+
+        chart2.setOption(option2, true);
+    </script>

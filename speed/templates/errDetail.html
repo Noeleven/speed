@@ -1,0 +1,88 @@
+{% extends "index.html" %}
+{% block content %}
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">请求详情</h3>
+      </div>
+      <div class="box-body">
+        <div class="box box-solid">
+          <div class="box-header with-border">
+              <h4>用户信息</h4>
+          </div>
+          <div class="box-body">
+              <div class="col-md-4">
+                  <dl>
+                      <dt>发生时间</dt>
+                      <dd>{{ time }}</dd>
+                      <dt>响应代码</dt>
+                      <dd>{{ code }}</dd>
+                      <dt>地域</dt>
+                      <dd>广东番禹</dd>
+                      <dt>APP版本</dt>
+                      <dd>7.9.6</dd>
+
+                  </dl>
+              </div>
+              <div class="col-md-4">
+                  <dl>
+                      <dt>用户ID</dt>
+                      <dd>{{ userId }}</dd>
+                      <dt>手机号</dt>
+                      <dd>{{ phone }}</dd>
+                      <dt>设备型号</dt>
+                      <dd>iPhone 7 Plus</dd>
+                      <dt>操作系统</dt>
+                      <dd>IOS 10.3.1</dd>
+                      <dt>浏览器</dt>
+                      <dd>未知</dd>
+                  </dl>
+              </div>
+              <div class="col-md-4">
+                  <dl>
+                      <dt>运营商</dt>
+                      <dd>中国移动</dd>
+                      <dt>网络</dt>
+                      <dd>4G</dd>
+                      <dt>服务耗时 毫秒</dt>
+                      <dd>{{ sertime }}</dd>
+                      <dt>网络耗时 毫秒</dt>
+                      <dd>{{ netime }}</dd>
+                  </dl>
+              </div>
+          </div>
+          <div class="box-header with-border">
+              <h5>请求URL</h5>
+          </div>
+          <div class="box-body">
+              <pre class='hierarchy bring-up'>POST http://api3g2.lvmama.com/api/router/rest.do</pre>
+          </div>
+          <div class="box-header with-border">
+              <h5>请求参数</h5>
+          </div>
+          <div class="box-body">
+              <pre class='hierarchy bring-up'>method=api.com.init.addDeviceToken&clientTimestamp=1496657288977&firstChannel=ANDROID&formate=json&globalLatitude=32.406803&osVersion=6.0.1&lvversionCode=62&lvversion=7.7.0&udid=860652030162553&lvsessionid=19a00ede-c218-47fb-bd8c-c0d8a9f10e4e&globalLongitude=119.552901&secondChannel=YYB2&lvtukey=5649d4d0474e1b1d8e679197b8be5584</pre>
+          </div>
+          <div class="box-header with-border">
+              <h5>响应头</h5>
+          </div>
+          <div class="box-body">
+              <pre class='hierarchy bring-up'></pre>
+          </div>
+          <div class="box-header with-border">
+              <h5>Debug-info</h5>
+          </div>
+          <div class="box-body">
+              <pre class='hierarchy bring-up'></pre>
+          </div>
+          <div class="box-header with-border">
+              <h5>响应信息</h5>
+          </div>
+          <div class="box-body">
+              <pre class='hierarchy bring-up'>java.net.UnknownHostException: Unable to resolve host "api3g2.lvmama.com": No address associated with hostname</pre>
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+{% block content %}
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">选择时间</h3>
+      </div>
+      <div class="box-body">
+        <form class="form-inline">
+            <div class="form-group">
+              <label class="sr-only">选择起始时间</label>
+
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="reservationtime">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="sr-only">时间范围</label>
+
+              <div class="input-group">
+                <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                  <span>
+                    <i class="fa fa-calendar"></i> 时间范围
+                  </span>
+                  <i class="fa fa-caret-down"></i>
+                </button>
+              </div>
+            </div>
+            <button class='btn btn-success'>查询</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">品类列表 <small class='text-danger'>单项点击查看性能报告</small>
+        </h3>
+      </div>
+      <div class="box-body">
+          <div>
+              {% for x in cis %}
+              <button type="button" class='tbtn btn btn-primary btn-sm' name="button">{{ x.des }}</button>
+              {% endfor %}
+          </div>
+          <div id='right'>
+          </div>
+
+      </div>
+    </div>
+
+    <script>
+        $('.tbtn').click(function(){
+            var id = $(this).text()
+            console.log(id)
+            $.get("/speed/appAjax", {'id':id} ,function(ret){
+                $('#right').html(ret)
+            });
+        });
+    </script>
+{% endblock content %}

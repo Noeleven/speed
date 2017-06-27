@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="box box-primary">
+  <div class="box-header">
+    <h3 class="box-title">选择时间</h3>
+  </div>
+  <div class="box-body">
+    <form class="form-inline">
+        <div class="form-group">
+          <label class="sr-only">选择起始时间</label>
+
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-clock-o"></i>
+            </div>
+            <input type="text" class="form-control pull-right" id="reservationtime">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="sr-only">时间范围</label>
+
+          <div class="input-group">
+            <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+              <span>
+                <i class="fa fa-calendar"></i> 时间范围
+              </span>
+              <i class="fa fa-caret-down"></i>
+            </button>
+          </div>
+        </div>
+        <button class='btn btn-success'>查询</button>
+    </form>
+  </div>
+</div>
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">接口服务耗时</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table id="ftable" class="ftable table table-bordered table-striped">
+          <thead>
+              <tr>
+              <th>平均服务耗时/毫秒</th>
+                <th>接口</th>
+                <th>接口名称</th>
+                <th>版本</th>
+                <th>品类</th>
+                <th>调用量</th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for x in datas %}
+              <tr>
+                <td>{% if x.time > 2000 %}<span class='label label-danger'>
+                {% elif x.time < 500 %}<span class='label label-success'>
+                {% else %}<span class='label label-warning'>
+                {% endif %}{{ x.time }}</span></td>
+                <td><a href="/speed/single?&id=1">{{ x.int }}</a></td>
+                <td>{{ x.des }}</td>
+                <td>{{ x.ver }}</td>
+                <td>{{ x.type }}</td>
+                <td>{{ x.num }}</td>
+              </tr>
+          {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+{% endblock content %}

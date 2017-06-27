@@ -1,0 +1,139 @@
+{% extends "index.html" %}
+{% block content %}
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">选择时间</h3>
+        </div>
+        <div class="box-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="sr-only">选择起始时间</label>
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="reservationtime">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only">时间范围</label>
+
+                    <div class="input-group">
+                        <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                            <span>
+                            <i class="fa fa-calendar"></i> 时间范围
+                            </span>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class='btn btn-success'>查询</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">用户网速分布</h3><small class='text-primary'> 我们的用户使用不同网络的占比</small>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa    fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <!-- <div class="col-md-7"> -->
+                <div class="chart">
+                    <div id="main" style="height:600px;"></div>
+                </div>
+            <!-- </div> -->
+
+            <!-- <div class="col-md-5">
+                <table id="ftable" class="ftable table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>平均网络耗时/毫秒</th>
+                            <th>省份</th>
+                            <th>省份</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in datas %}
+                        <tr>
+                            <td>{% if x.netTime > 2000 %}<span class='label label-danger'>
+                            {% elif x.netTime < 500 %}<span class='label label-success'>
+                            {% else %}<span class='label label-warning'>{%endif%}
+                            {{ x.netTime }}</span></td>
+                            <td>{{ x.provice }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> -->
+        </div>
+    </div>
+
+
+<script>
+    function randomData() {
+        return Math.round(Math.random()*2000);
+    }
+
+    var chart = echarts.init(document.getElementById('main'));
+
+    option = {
+        title : {
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : 'center',
+            y : 'bottom',
+            data:['GPRS 50Kb/s','2G 250kb/s','Good2G 450kb/s','3G 750kb/s','Good3G 1500kb/s','4G 4096kb/s','Wifi >4096kb/s']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel']
+                },
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'面积模式',
+                type:'pie',
+                radius : [20, 200],
+                roseType : 'radius',
+                data:[
+                    {value:2, name:'GPRS 50Kb/s'},
+                    {value:5, name:'2G 250kb/s'},
+                    {value:7, name:'Good2G 450kb/s'},
+                    {value:10, name:'3G 750kb/s'},
+                    {value:20, name:'Good3G 1500kb/s'},
+                    {value:16, name:'4G 4096kb/s'},
+                    {value:50, name:'Wifi >4096kb/s'},
+                ]
+            }
+        ]
+    };
+
+    chart.setOption(option, true);
+
+</script>
+
+
+{% endblock content %}
