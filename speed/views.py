@@ -251,40 +251,50 @@ def history(request):
 def ciType(request):
 	origin = CategoryType.objects.all()
 	datas = []
+	version = ['7.10.0', '7.9.8', '7.9.7']
+	channel = ['IOS', 'Android', 'H5']
 	for x in origin:
 		tmp = {
 			'type':x.des,
-			'num':random.randint(5,25),
-			'sertime':random.randint(30,2500),
-			'time':random.randint(40,5000),
+			# 'num':random.randint(5,25),
+			# 'sertime':random.randint(30,2500),
+			# 'intNum':random.randint(15,30),
+			# 'time':random.randint(40,5000),
+			# 'version':random.choice(version),
+			# 'channel':random.choice(channel),
 		}
 		datas.append(tmp)
 	return render(request, 'ciType.html', locals())
 
 def ciAjax(request):
 	mtype = request.GET.get('type')
+	mver = request.GET.get('version')
+	mchan = request.GET.get('channel')
 	datas = []
-	intss = ['api.com.csa.ticket.product.getDetails',
-		'api.com.csa.ticket.goods.getGoods',
-		'api.com.csa.ticket.goods.getPriceCalendar',
-		'api.com.csa.ticket.order.inputTicketOrder',
-		'api.com.csa.ticket.order.countTicketPrice',
-		'api.com.csa.ticket.order.createOrder',
-		'api.com.order.getPayChannel',
-		]
-	for x in intss:
-		sertime = random.randint(1,8000)
-		netTime = random.randint(1,8000)
-		inter = Ints.objects.get(method=x)
+	pageName = ['详情页', '选择团期','填写订单页','更换机票','更换酒店','提交订单']
+	for x in pageName:
+		ints = []
+		y = random.randint(1,6)
+		for y in range(1,y):
+			sertime = random.randint(1,8000)
+			netTime = random.randint(1,8000)
+			ii = Ints.objects.get(id=random.randint(1,100))
+			itmp = {
+				'method':ii.method,
+				'des':ii.des,
+				'sertime':sertime,
+				'netTime':netTime,
+				'netper':netTime / 150,
+				'serper':sertime / 150,
+				}
+			ints.append(itmp)
+
 		tmp = {
-			'des':inter.des,
-			'method':x,
-			'sertime':sertime,
-			'netTime':netTime,
-			'netper':netTime / 150,
-			'serper':sertime / 150,
-		}
+			'des':x,
+			'ints':ints,
+			}
 		datas.append(tmp)
+	print(datas)
 	return render(request, 'ciAjax.html', locals())
 
 # 用户感知品类排名
@@ -348,12 +358,17 @@ def appPage(request):
 def appAjax(request):
 	tid = request.GET.get('id')
 	datas = []
-	opration = ['查看产品详情','选择时间价格','提交订单','查看点评','查看景点特色','调起支付']
+	opration = ['门票频道页','门票详情页','时间价格表页','首页','调起支付页']
+	ver = ['7.9.8','7.9.6','7.9.7','7.9.5','7.10.0']
+	activity = ['com.bumptech.glide.manager.RequestManagerFragment','com.gift.android.activity.splash.WelcomeActivity','com.lvmama.special.activity.SpecialDetailBaseActivity','QuestionDetailsViewController','HomeSearchViewController']
 	cis = CategoryType.objects.all()
 	for x in range(random.randint(3,6)):
 		tmp = {
 			'name':random.choice(opration),
-			'time':random.randint(30,5000)
+			'activity':random.choice(activity),
+			'wt':random.randint(30,2000),
+			'ft':random.randint(30,2000),
+			'version':random.choice(ver),
 		}
 		datas.append(tmp)
 	return render(request, 'appAjax.html', locals())

@@ -4,49 +4,66 @@
     <h3 class="box-title">{{origin.plat}} {{origin.name}} <small> 性能报告</small></h3>
   </div>
   <div class="box-body">
-      <span class='label label-success'>本页平均</span>
+      <!-- <span class='label label-success'>本页平均</span>
       <span class='label label-primary'>互联网平均</span>
-      <span class='label label-danger'>高于平均</span>
-      <table class="table table-hover table-bordered">
+      <span class='label label-danger'>高于平均</span> -->
+      <table class="table table-hover table-bordered table-striped">
         <tbody>
             <tr>
-                <td>样本数</td>
+                <td>PV</td>
                 <td>{{index.req}}</td>
-                <td>页面大小</td>
-                <td>{% if index.size > 1417 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.size}} KB</span> <span class='label label-primary'>1417KB</span></td>
                 <td>综合评分</td>
                 <td>{{index.score}}</td>
             </tr>
-            <tr>
-                <td>白屏</td><td>{% if index.wp > 2.537 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.wp}} 秒</span> <span class='label label-primary'>2.537</span></td>
-                <td>可交互</td><td>{% if index.dp > 3.113 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.dp}} 秒</span> <span class='label label-primary'>3.113</span></td>
-                <!-- <td>首屏</td><td>{% if index.fp > 3.389 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.fp}} 秒</span> <span class='label label-primary'>3.389</span></td> -->
-                <td>加载完成</td><td>{% if index.lp > 9.451 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.lp}} 秒</span> <span class='label label-primary'>9.451</span></td>
+            <tr class='success'>
+                <td></td>
+                <!-- <td>页面大小(KB)</td> -->
+                <td>DNS解析(s)</td><td>服务建联(s)</td><td>SSL握手(s)</td><td>后端处理(s)</td>
+                <td>数据下载(s)</td><td>页面加载(s)</td>
+                <td>白屏(s)</td><td>首屏(s)</td><td>可交互(s)</td>
             </tr>
             <tr>
-                <td>DNS解析</td>
-                <td>{% if index.dns > 0.045 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.dns}} 秒</span> <span class='label label-primary'>0.045</span></td>
-                <td>服务建连</td>
-                <td>{% if index.con > 0.058 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.con}} 秒</span> <span class='label label-primary'>0.058</span></td>
-                {% if index.ssl %}<td>SSL握手</td>
-                <td>{% if index.ssl > 0.125 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.ssl}} 秒</span> <span class='label label-primary'>0.125</span></td>{% endif %}
-                <td>后端处理</td>
-                <td>{% if index.server > 0.125 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.server}} 秒</span> <span class='label label-primary'>0.125</span></td>
+                <td>全网中位值</td>
+                <!-- <td>508</td> -->
+                <td>0.05</td><td>0.111</td><td></td><td>0.279</td>
+                <td></td><td>10.306</td><td> 1.751</td><td>7.044</td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>当前平均</td>
+                <!-- <td>{% if index.size > 508 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.size}}</span></td> -->
+                <td>{% if index.dns > 0.05 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.dns}} </span></td>
+                <td>{% if index.con > 0.111 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.con}} </span></td>
+                <td>{{index.ssl}}</td>
+                <td>{% if index.server > 0.279 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.server}} </span></td>
+                <td>{{index.download}}</td>
+                <td>{% if index.lp > 10.306 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.lp}} </span></td>
+                <td>{% if index.wp > 1.751 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.wp}} </span></td>
+                <td>{% if index.fp > 7.044 %}<span class='label label-danger'>{% else %}<span class='label label-success'>{% endif%}{{index.fp}} </span></td>
+                <td>{{index.dp}}</td>
             </tr>
           </tbody>
       </table>
       <hr>
-      <div class="col-md-5">
-          <div id='rada' style='height:400px'></div>
+      <div class="row">
+          <div class="col-md-5">
+              <div id='rada' style='height:400px'></div>
+          </div>
+          <div class="col-md-7">
+              <div id='line' style='height:200px'></div>
+          </div>
       </div>
-      <div class="col-md-7">
-          <div id='zhan' style='height:400px'></div>
+      <div class="col-md-6">
+          <div id='zhan' style='height:350px'></div>
       </div>
-      <!-- <div class="col-md-12">
-          <div id='line' style='height:400px'></div>
-      </div> -->
-
-
+      <div class="col-md-6">
+          <div id='zhan1' style='height:350px'></div>
+      </div>
+      <div class="col-md-6">
+          <div id='zhan2' style='height:350px'></div>
+      </div>
+      <div class="col-md-6">
+          <div id='zhan3' style='height:350px'></div>
+      </div>
 
   </div>
 </div>
@@ -57,8 +74,11 @@
     }
 
     var chart = echarts.init(document.getElementById('rada'));
-    // var chart1 = echarts.init(document.getElementById('line'));
+    var chart1 = echarts.init(document.getElementById('line'));
     var chart2 = echarts.init(document.getElementById('zhan'));
+    var chart3 = echarts.init(document.getElementById('zhan1'));
+    var chart4 = echarts.init(document.getElementById('zhan2'));
+    var chart5 = echarts.init(document.getElementById('zhan3'));
 
     var a = Math.floor(Math.random() * 45)
         b = 45 - a
@@ -67,15 +87,18 @@
             text: '性能指数雷达'
         },
         tooltip: {},
+        legend: {
+            data: ['当前平均', '全网中位值']
+        },
         radar: {
             // shape: 'circle',
             indicator: [
+            //    { name: '页面大小', max: 100},
                { name: 'DNS解析', max:100 },
                { name: '服务建连', max: 100},
-               { name: 'SSL握手', max: 100},
                { name: '后端', max: 100},
                { name: '白屏', max: 100},
-               { name: '可交互', max: 100},
+               { name: '首屏', max: 100},
                { name: '加载完成', max: 100}
             ]
         },
@@ -86,117 +109,225 @@
             data : [
                 {
                     value : {{ value | safe}},
-                    name : '性能指数'
+                    name : '当前平均'
+                },
+                {
+                    value : [60,60,60,60,60,60],
+                    name : '全网中位值'
                 },
             ]
         }]
     };
-    // option1 = {
-    //     title: {
-    //         text: '用户指标趋势'
-    //     },
-    //     tooltip : {
-    //         trigger: 'axis',
-    //         axisPointer: {
-    //             type: 'line',
-    //             label: {
-    //                 backgroundColor: '#6a7985'
-    //             }
-    //         }
-    //     },
-    //     legend: {
-    //         data:['白屏','可交互','加载完']
-    //     },
-    //     xAxis : [
-    //         {
-    //             name: '时间轴',
-    //             type : 'category',
-    //             boundaryGap : false,
-    //             data : ['2017-05-24', '2017-05-25', '2017-05-26', '2017-05-27', '2017-05-28', '2017-05-29', '2017-05-30', '2017-05-31']
-    //         }
-    //     ],
-    //     yAxis : [
-    //         {
-    //             type : 'value',
-    //             name : '耗时/秒'
-    //         }
-    //     ],
-    //     series : [
-    //         {
-    //             name:'白屏',
-    //             type:'line',
-    //             smooth:true,
-    //             // stack: '总量',
-    //             // areaStyle: {normal: {opacity:1}},
-    //             data:[
-    //                 {'name': '2017-05-24', 'value':randomData()},
-    //                 {'name': '2017-05-25', 'value':randomData()},
-    //                 {'name': '2017-05-26', 'value':randomData()},
-    //                 {'name': '2017-05-27', 'value':randomData()},
-    //                 {'name': '2017-05-28', 'value':randomData()},
-    //                 {'name': '2017-05-29', 'value':randomData()},
-    //                 {'name': '2017-05-30', 'value':randomData()},
-    //             ]
-    //         },
-    //         {
-    //             name:'可交互',
-    //             type:'line',
-    //             smooth:true,
-    //             // stack: '总量',
-    //             // areaStyle: {normal: {opacity:0.6}},
-    //             data:[
-    //                 {'name': '2017-05-24', 'value':randomData()+1.5},
-    //                 {'name': '2017-05-25', 'value':randomData()+1.5},
-    //                 {'name': '2017-05-26', 'value':randomData()+1.5},
-    //                 {'name': '2017-05-27', 'value':randomData()+1.5},
-    //                 {'name': '2017-05-28', 'value':randomData()+1.5},
-    //                 {'name': '2017-05-29', 'value':randomData()+1.5},
-    //                 {'name': '2017-05-30', 'value':randomData()+1.5},
-    //             ]
-    //         },
-    //         {
-    //             name:'加载完',
-    //             type:'line',
-    //             smooth:true,
-    //             // stack: '总量',
-    //             // areaStyle: {normal: {opacity:0}},
-    //             data:[
-    //                 {'name': '2017-05-24', 'value':randomData()+4},
-    //                 {'name': '2017-05-25', 'value':randomData()+4},
-    //                 {'name': '2017-05-26', 'value':randomData()+4},
-    //                 {'name': '2017-05-27', 'value':randomData()+4},
-    //                 {'name': '2017-05-28', 'value':randomData()+4},
-    //                 {'name': '2017-05-29', 'value':randomData()+4},
-    //                 {'name': '2017-05-30', 'value':randomData()+4},
-    //             ]
-    //         },
-    //     ]
-    // };
+    option1 = {
+        title: {
+            text: '用户指标趋势'
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'line',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        legend: {
+            data:['白屏','首屏','可交互','加载完']
+        },
+        xAxis : [
+            {
+                name: '时间轴',
+                type : 'category',
+                boundaryGap : false,
+                data : ['2017-05-24', '2017-05-25', '2017-05-26', '2017-05-27', '2017-05-28', '2017-05-29', '2017-05-30', '2017-05-31']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                name : '耗时/秒'
+            }
+        ],
+        series : [
+            {
+                name:'白屏',
+                type:'line',
+                smooth:true,
+                // stack: '总量',
+                // areaStyle: {normal: {opacity:1}},
+                data:[
+                    {'name': '2017-05-24', 'value':randomData()},
+                    {'name': '2017-05-25', 'value':randomData()},
+                    {'name': '2017-05-26', 'value':randomData()},
+                    {'name': '2017-05-27', 'value':randomData()},
+                    {'name': '2017-05-28', 'value':randomData()},
+                    {'name': '2017-05-29', 'value':randomData()},
+                    {'name': '2017-05-30', 'value':randomData()},
+                ]
+            },
+            {
+                name:'首屏',
+                type:'line',
+                smooth:true,
+                // stack: '总量',
+                // areaStyle: {normal: {opacity:0.6}},
+                data:[
+                    {'name': '2017-05-24', 'value':randomData()+1.2},
+                    {'name': '2017-05-25', 'value':randomData()+1.2},
+                    {'name': '2017-05-26', 'value':randomData()+1.2},
+                    {'name': '2017-05-27', 'value':randomData()+1.2},
+                    {'name': '2017-05-28', 'value':randomData()+1.2},
+                    {'name': '2017-05-29', 'value':randomData()+1.2},
+                    {'name': '2017-05-30', 'value':randomData()+1.2},
+                ]
+            },
+            {
+                name:'可交互',
+                type:'line',
+                smooth:true,
+                // stack: '总量',
+                // areaStyle: {normal: {opacity:0.6}},
+                data:[
+                    {'name': '2017-05-24', 'value':randomData()+1.5},
+                    {'name': '2017-05-25', 'value':randomData()+1.5},
+                    {'name': '2017-05-26', 'value':randomData()+1.5},
+                    {'name': '2017-05-27', 'value':randomData()+1.5},
+                    {'name': '2017-05-28', 'value':randomData()+1.5},
+                    {'name': '2017-05-29', 'value':randomData()+1.5},
+                    {'name': '2017-05-30', 'value':randomData()+1.5},
+                ]
+            },
+            {
+                name:'加载完',
+                type:'line',
+                smooth:true,
+                // stack: '总量',
+                // areaStyle: {normal: {opacity:0}},
+                data:[
+                    {'name': '2017-05-24', 'value':randomData()+4},
+                    {'name': '2017-05-25', 'value':randomData()+4},
+                    {'name': '2017-05-26', 'value':randomData()+4},
+                    {'name': '2017-05-27', 'value':randomData()+4},
+                    {'name': '2017-05-28', 'value':randomData()+4},
+                    {'name': '2017-05-29', 'value':randomData()+4},
+                    {'name': '2017-05-30', 'value':randomData()+4},
+                ]
+            },
+        ]
+    };
     option2 = {
         title : {
-            text: '页面加载耗时占比',
+            text: '白屏耗时分布',
+            x:'center',
+            y:'bottom'
         },
         tooltip : {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
-            x : 'center',
-            y : 'bottom',
-            data:['0-2秒','2-4秒','4-6秒','6-8秒','8-10秒','10秒以上']
+            x : 'left',
+            orient: 'vertical',
+            data:['0-1秒','1-2秒','2-3秒','3-4秒','4-5秒','5秒以上']
         },
-        toolbox: {
-            show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {
-                    show: true,
-                    type: ['pie', 'funnel']
-                },
-                restore : {show: true},
-                saveAsImage : {show: true}
+        calculable : true,
+        series : [
+            {
+                name:'面积模式',
+                type:'pie',
+                radius : [20, 110],
+                roseType : 'radius',
+                data:[
+                    {value:5, name:'0-1秒'},
+                    {value:15, name:'1-2秒'},
+                    {value:25, name:'2-3秒'},
+                    {value:a, name:'3-4秒'},
+                    {value:10, name:'4-5秒'},
+                    {value:b, name:'5秒以上'},
+                ]
             }
+        ]
+    };
+    option3 = {
+        title : {
+            text: '首屏耗时占比',
+            x:'center',
+            y:'bottom'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : 'left',
+            orient: 'vertical',
+            data:['0-1秒','1-2秒','2-3秒','3-4秒','4-5秒','5秒以上']
+        },
+        calculable : true,
+        series : [
+            {
+                name:'面积模式',
+                type:'pie',
+                radius : [20, 110],
+                roseType : 'radius',
+                data:[
+                    {value:5, name:'0-1秒'},
+                    {value:15, name:'1-2秒'},
+                    {value:25, name:'2-3秒'},
+                    {value:a, name:'3-4秒'},
+                    {value:10, name:'4-5秒'},
+                    {value:b, name:'5秒以上'},
+                ]
+            }
+        ]
+    };
+    option4 = {
+        title : {
+            text: '可交互耗时分布',
+            x:'center',
+            y:'bottom'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : 'left',
+            orient: 'vertical',
+            data:['0-1秒','1-2秒','2-3秒','3-4秒','4-5秒','5秒以上']
+        },
+        calculable : true,
+        series : [
+            {
+                name:'面积模式',
+                type:'pie',
+                radius : [20, 110],
+                roseType : 'radius',
+                data:[
+                    {value:5, name:'0-1秒'},
+                    {value:15, name:'1-2秒'},
+                    {value:25, name:'2-3秒'},
+                    {value:a, name:'3-4秒'},
+                    {value:10, name:'4-5秒'},
+                    {value:b, name:'5秒以上'},
+                ]
+            }
+        ]
+    };
+    option5 = {
+        title : {
+            text: '页面加载耗时占比',
+            x:'center',
+            y:'bottom'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : 'left',
+            orient: 'vertical',
+            data:['0-2秒','2-4秒','4-6秒','6-8秒','8-10秒','10秒以上']
         },
         calculable : true,
         series : [
@@ -218,6 +349,9 @@
     };
 
     chart.setOption(option, true);
-    // chart1.setOption(option1, true);
+    chart1.setOption(option1, true);
     chart2.setOption(option2, true);
+    chart3.setOption(option3, true);
+    chart4.setOption(option4, true);
+    chart5.setOption(option5, true);
 </script>

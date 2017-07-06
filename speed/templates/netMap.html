@@ -2,6 +2,18 @@
 {% load staticfiles %}
 {% block content %}
 <script src='http://echarts.baidu.com/asset/map/js/china.js'></script>
+    <div class="callout callout-success" style="margin-bottom: 0!important;">
+        <h4>功能说明:</h4>
+
+        <li>数据统计</li>
+        <ul>
+            <li>有效时间段内的接口数据</li>
+            <li>根据经纬度、ip等识别地域、城市，分类确定范围</li>
+            <li>再计算各地域的网络平均耗时</li>
+            <li>到城市，再统计范围内接口的 不同运营商+网络制式的组合计算平均网络耗时</li>
+        </ul>
+        <li>地市下钻</li>
+    </div>
 
     <div class="box box-primary">
         <div class="box-header">

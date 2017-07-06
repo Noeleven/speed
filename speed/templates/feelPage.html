@@ -1,5 +1,31 @@
 {% extends "index.html" %}
 {% block content %}
+    <div class="callout callout-success" style="margin-bottom: 0!important;">
+        <h4>功能说明:</h4>
+
+        <li>URL匹配规则</li>
+        <ul>
+            <li>仅针对PC/H5网页类数据</li>
+            <li>URL需要后台配置，通过正则匹配规则，并配置页面名称。做法可参考H5首屏时间统计项目或听云</li>
+        </ul>
+        <li>URL计分规则</li>
+        <ul>
+            <li>页面综合评分规则(供参考)：统计DNS解析、服务建联、后端处理、下载、页面加载、白屏、首屏 这7项的得分，求平均值</li>
+            <li>7项得分：采集全网<b>中位值</b>，认为是60分，根据计算公式:得分/该项数值 = 60/全网数值，求得分</li>
+            <li>全网数值：采集自性能魔方，手机评测给的数值， <a href="http://www.mmtrix.com/evaluate/phone/testid/fd54e81ff1d810d557b6662b7b2ce30a">链接</a> </li>
+            <ul>
+                <li>平均值：白屏 2.447 首屏 7.044 整页 10.306 DNS 0.117 建联 0.151 服务耗时 0.446 请求大小 666KB</li>
+                <li>中位值：白屏 1.751 首屏 4.671 整页 7.247 DNS 0.05 建联 0.111 服务耗时 0.279 请求大小 508KB</li>
+            </ul>
+        </ul>
+
+        <li>页面功能</li>
+        <ul>
+            <li>URL列表可点击展示具体信息</li>
+            <li>展示数据参考demo</li>
+        </ul>
+
+      </div>
 
     <div class="box box-primary">
       <div class="box-header">

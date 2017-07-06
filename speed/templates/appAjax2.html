@@ -1,5 +1,6 @@
 
-    <div id='zhan' style='height:400px'></div>
+    <div id='zhan' style='height:400px' class='col-md-6'></div>
+    <div id='zhan1' style='height:400px' class='col-md-6'></div>
 
     <script>
         function randomData() {
@@ -7,12 +8,13 @@
         }
 
         var chart2 = echarts.init(document.getElementById('zhan'));
+        var chart3 = echarts.init(document.getElementById('zhan1'));
         var a = Math.floor(Math.random() * 60)
             b = 60 - a
 
         option2 = {
             title : {
-                text: '{{name|safe}} 耗时占比',
+                text: '{{name|safe}} 白屏耗时分布',
             },
             tooltip : {
                 trigger: 'item',
@@ -21,20 +23,7 @@
             legend: {
                 x : 'center',
                 y : 'bottom',
-                data:['0-2秒','2-4秒','4-6秒','6-8秒','8-10秒','10秒以上']
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
-                    magicType : {
-                        show: true,
-                        type: ['pie', 'funnel']
-                    },
-                    restore : {show: true},
-                    saveAsImage : {show: true}
-                }
+                data:['0-1秒','1-2秒','2-3秒','3-4秒','4-5秒','5秒以上']
             },
             calculable : true,
             series : [
@@ -44,16 +33,49 @@
                     radius : [20, 110],
                     roseType : 'radius',
                     data:[
-                        {value:5, name:'0-2秒'},
-                        {value:15, name:'2-4秒'},
-                        {value:a, name:'4-6秒'},
-                        {value:b, name:'6-8秒'},
-                        {value:7, name:'8-10秒'},
-                        {value:13, name:'10秒以上'},
+                        {value:5, name:'0-1秒'},
+                        {value:15, name:'1-2秒'},
+                        {value:a, name:'2-3秒'},
+                        {value:b, name:'3-4秒'},
+                        {value:7, name:'4-5秒'},
+                        {value:13, name:'5秒以上'},
+                    ]
+                }
+            ]
+        };
+
+        option3 = {
+            title : {
+                text: '{{name|safe}} 首屏耗时分布',
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                x : 'center',
+                y : 'bottom',
+                data:['0-1秒','1-2秒','2-3秒','3-4秒','4-5秒','5秒以上']
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'面积模式',
+                    type:'pie',
+                    radius : [20, 110],
+                    roseType : 'radius',
+                    data:[
+                        {value:5, name:'0-1秒'},
+                        {value:5, name:'1-2秒'},
+                        {value:a, name:'2-3秒'},
+                        {value:13, name:'3-4秒'},
+                        {value:17, name:'4-5秒'},
+                        {value:b, name:'5秒以上'},
                     ]
                 }
             ]
         };
 
         chart2.setOption(option2, true);
+        chart3.setOption(option3, true);
     </script>

@@ -1,41 +1,36 @@
-<div class="box box-success">
-    <div class="box-header with-border">
-      <h3 class="box-title">{{mtype}}  业务流各页面主要接口耗时Line </h3>
-
-      <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-      </div>
-    </div>
-    <div class="box-body">
-        <ul class="timeline">
-            {% for x in datas %}
-          <li class="time-label">
-              <span class="bg-teal">
-              {{x.des}}
-              </span>
-          </li>
-          <li>
+    <ul class="timeline">
+        <li class="time-label">
+            <span class="bg-black">
+            品类：{{mtype}} | 版本：{{mver}} | 渠道：{{mchan}}
+            </span>
+        </li>
+        {% for x in datas %}
+        <li class="time-label">
+            <span class="bg-blue">
+            {{x.des}}
+            </span>
+        </li>
+        {% for z in x.ints %}
+        <li>
             <i class="fa bg-blue">x1</i>
             <div class="timeline-item">
                 <span class="time"><i class="fa fa-clock-o"></i>
-                    平均网络时间 {{x.netTime}} 毫秒 | 平均服务时间 {{x.sertime}} 毫秒
+                平均网络时间 {{z.netTime}} 毫秒 | 平均服务时间 {{z.sertime}} 毫秒
                 </span>
-                <h3 class="timeline-header"><a href="/speed/single?id=13">{{ x.method }}</a></h3>
+                <h3 class="timeline-header"><a href="/speed/single?id=13">{{ z.method }} | {{ z.des }}</a></h3>
 
                 <div class="timeline-body">
                     <div class="progress active">
-                        <div class="progress-bar progress-bar-purple progress-bar-striped" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="width: {{x.netper}}%">
-                          <span></span>
-                        </div>
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{x.serper}}%">
+                        <div class="progress-bar progress-bar-purple progress-bar-striped" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="width: {{z.netper}}%">
                             <span></span>
-                          </div>
+                        </div>
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{z.serper}}%">
+                            <span></span>
+                        </div>
                     </div>
                 </div>
             </div>
-          </li>
-          {% endfor %}
-
-        </ul>
-    </div>
-  </div>
+        </li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
